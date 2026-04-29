@@ -1,3 +1,11 @@
+/*
+@title: Chase The Gate
+@author: Sabhya Aggarwal
+@description: A game where you have to touch the green core to activate it and then you must catch the red square.
+@addedOn: 2026-04-29
+@tags: []
+*/
+
 const player = "p";
 const wall = "w";
 const core = "c";
