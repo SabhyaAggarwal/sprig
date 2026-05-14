@@ -84,70 +84,105 @@ setLegend(
 
 setSolids([player, wall, gate]);
 
-// Each map must have the same number of columns on every line!
 const levels = [
   map`
-wwwwwwwwwwwwww
-w............w
-w...c........w
-w............w
-w.......g....w
-w............w
-w...p........w
-wwwwwwwwwwwwww
+wwwwwwwwwwwwwwww
+w..............w
+w...c..........w
+w..............w
+w.......g......w
+w..............w
+w...p..........w
+wwwwwwwwwwwwwwww
 `,
   map`
-wwwwwwwwwwwwww.
-w....w.w.....w.
-w..c.w.w.g...w.
-w....w.....w.w.
-w.wwwwwwww.w.w.
-w...........pw.
-wwwwwwwwwwwwww.
-`, // 15 columns
-  map`
 wwwwwwwwwwwwwwww
-w..c..w......w.w
-www.w.www.wwww.w
-w.w.........g..w
-w.wwwwww.wwwwwww
-w............p.w
-wwwwwwwwwwwwwwww`, //18 columns
-  map`
-wwwwwwwwwwwwwwww
-wp..w.....w....w
-w.wwww.w.gw.w..w
-w.........w.c..w
-w.www.wwwww.wwww
+w......w.......w
+w..c.w.w.g.....w
+w....w.....w...w
+w.wwwwwwww.w...w
+w...........p..w
 w..............w
-wwwwwwwwwwwwwwww`, //18 columns
+wwwwwwwwwwwwwwww`,
+  map`
+wwwwwwwwwwwwwwww
+w..c..w........w
+www...www.wwww.w
+w..............w
+w.wwwwww.wwwwwww
+w....g.......p.w
+w..............w
+wwwwwwwwwwwwwwww`,
+  map`
+wwwwwwwwwwwwwwww
+wp.............w
+w.wwww...gw....w
+w.........w.c..w
+w.www.wwwwwwww.w
+w..............w
+w..............w
+wwwwwwwwwwwwwwww`,
   map`
 wwwwwwwwwwwwwwww
 w.p..........g.w
 w.www.w.wwwwww.w
-ww....w..c.....w
-wwwwwwwwwwwwww.w
+w.....w..c.....w
+w.wwwwwwwwwwww.w
 w..............w
-wwwwwwwwwwwwwwww` //18 columns
+w..............w
+wwwwwwwwwwwwwwww`,
+  map`
+wwwwwwwwwwwwwwww
+w.............cw
+wpwww.wwwww....w
+w.........w....w
+w...w...w....g.w
+w....w.........w
+w..............w
+wwwwwwwwwwwwwwww`,
+  map`
+wwwwwwwwwwwwwwww
+w...........w..w
+wc.w..wwww..w..w
+w..w..w..w.....w
+w..wwwp..w..g..w
+w..............w
+w..............w
+wwwwwwwwwwwwwwww`,
+  map`
+wwwwwwwwwwwwwwww
+w.p............w
+www.wwwwwwwwwwww
+w......c.......w
+w.wwwwwwwwwww.ww
+w..............w
+w............g.w
+wwwwwwwwwwwwwwww`,
+  map`
+wwwwwwwwwwwwwwww
+w...p........g.w
+w.www.www.wwww.w
+w....c.........w
+w.wwwwwwwwwww..w
+w..............w
+w..............w
+wwwwwwwwwwwwwwww`,
+  map`
+wwwwwwwwwwwwwwww
+w....w.p...w...w
+w..w.....w....cw
+w..www.www.www.w
+w.g............w
+w..............w
+w..............w
+wwwwwwwwwwwwwwww`
 ];
-
-// fix level lengths by padding rows with '.' as needed so all lines have same length per level
-function padLevel(levelStr) {
-  const lines = levelStr.trim().split('\n');
-  const maxLen = Math.max(...lines.map(line => line.length));
-  return lines.map(line => line.padEnd(maxLen, '.')).join('\n');
-}
-
-// If you want guaranteed rectangular validation, you could do:
-const levelsRect = levels.map(lv => map`${padLevel(lv)}`);
-
 let currentLevel = 0;
 let hasCore = false;
 let gameOver = false;
 
-// Use levelsRect instead of levels:
 function startLevel(n) {
-  setMap(levelsRect[n]);
+  setMap(levels[n]);
   hasCore = false;
   gameOver = false;
   clearText();
@@ -269,7 +304,7 @@ function gameStep() {
       gameOver = true;
 
       setTimeout(() => {
-        if (currentLevel < levelsRect.length - 1) {
+        if (currentLevel < levels.length - 1) {
           currentLevel += 1;
           startLevel(currentLevel);
         } else {
